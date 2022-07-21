@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+	<script>
+	var count=0;
+ 
+	
+	function agregarValores(){
+		
+		var nombre=document.getElementById("nombre").value;
+		var apellidos=document.getElementById("apellidos").value;
+		var Numero=document.getElementById("Numero").value;
+ 
+		
+		count++;
+ 
+		if(nombre.length>0 || apellidos.length>0)
+		{
+			var tbody = document.getElementById("miTabla").getElementsByTagName("TBODY")[0];
+ 
+			var attrId = document.createAttribute('id');
+			attrId.value=count;
+ 
+			var td1 = document.createElement("TD");
+			td1.appendChild(document.createTextNode(nombre));
+			var td2 = document.createElement("TD");
+			td2.appendChild(document.createTextNode(apellidos));
+			var td3 = document.createElement("TD");
+			td3.appendChild(document.createTextNode(Numero));
+			var td4 = document.createElement("TD");
+			td4.appendChild(crearButton(count));
+ 
+			var row = document.createElement("TR");
+			row.setAttributeNode(attrId);
+			row.appendChild(td1);
+			row.appendChild(td2);
+			row.appendChild(td3);
+			row.appendChild(td4);
+			tbody.appendChild(row);
+		}
+ 
+		
+		document.getElementById("nombre").value="";
+		document.getElementById("apellidos").value="";
+		document.getElementById("Numero").value="";
+	}
+ 
+	
+	 
+	function eliminarValor(id)
+	{
+		var row = document.getElementById(id);
+		row.parentNode.removeChild(row);
+	}
+ 
+	
+	function crearButton(id)
+	{
+		var button=document.createElement("input");
+		var attrType=document.createAttribute('type');
+		attrType.value="button";
+		var attrValue=document.createAttribute('value');
+		attrValue.value="Eliminar";
+		var attrOnclick=document.createAttribute('onclick');
+		attrOnclick.value="eliminarValor("+count+");";
+ 
+		button.setAttributeNode(attrType);
+		button.setAttributeNode(attrValue);
+		button.setAttributeNode(attrOnclick);
+ 
+		return button;
+	}
+	</script>
+ 
+	<style>
+	#miTabla {border:1px solid #ddd;padding: 10px;}
+	#miTabla thead tr td {font-weight:bold;padding:10px;}
+	#miTabla tbody tr:nth-child(odd) {background-color:#f8f8f8;}
+	#miTabla tr {padding: 0px;}
+	#miTabla td {padding:5px;}
+ 
+	form {width:300px;text-align:center;}
+	form label {display:inline-block;width:100px;text-align:right;}
+	</style>
+</head>
+ 
+<body>
+ 
+<table id="miTabla">
+	<thead>
+		<tr>
+			<td>Nombre</td>
+			<td>Apellidos</td>
+			<td>Numero</td>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+ 
+<p>
+	<form>
+		<label>Nombre:</label> <input type="text" id="nombre">
+		<label>Apellidos:</label> <input type="text" id="apellidos">
+		<label>Numero:</label> <input type="text" id="Numero">
+		<p>
+			<input type="button" onclick="agregarValores();" value="Agregar">
+		</p>
+	</form>
+</p>
+ 
+</body>
+</html>
